@@ -45,7 +45,6 @@ def filtrar_dados(test_data):
     filtro_licenca = st.session_state.get("filtro_licenca", "")
     filtro_data = st.session_state.get("filtro_data", "")
     filtro_decisao = st.session_state.get("filtro decisao", "")
-    #filtro_localizacao = st.session_state.get("filtro_localizacao", "Todos")
 
     filtered_data = test_data
     if filtro_CNH:
@@ -73,7 +72,6 @@ def main():
     quant_videos = len(os.listdir("assets/videos"))
     arquivo_video = "assets/videos/Video1.mp4"
     test_data = load_test_csv('assets/logs/log.csv')
-    #test_data = load_test_csv("teste.csv")
     quant_total_multas = tamanho_csv(test_data)
     tamanho_pagina = 12
 
@@ -92,7 +90,6 @@ def main():
 
     st.title('Aplicação de infrações automática')
 
-
     with st.sidebar:
         st.text_input("CNH", key="filtro_CNH")
         st.text_input("Nome", key="filtro_nome")
@@ -100,26 +97,12 @@ def main():
         st.selectbox("Licença Ativa", ("Todos", "1", "0"), key="filtro_licenca")
         st.text_input("Data", key="filtro_data")
         st.selectbox("Desição", ("Todos", "Documento Irregular", "Linceça Cassada"), key="filtro_decisao")
-        #st.selectbox("Localizacao", 
-        #               ("Todos", "Bairro de Fátima", "Boa Viagem", "Cachoeiras", "Centro", "Charitas", 
-        ##             "Ponta d'Areia", "Santa Rosa", "São Domingos", "São Francisco", "Viradouro",
-            #            "Vital Brazil", "Baldeador", "Barreto", "Caramujo", "Cubango", "Engenhoca",
-            #           "Fonseca", "Ilha da Conceição", "Santa Bárbara", "Santana", "São Lourenço",
-            #          "Tenente Jardim", "Viçoso Jardim", "Cafubá", "Camboinhas", "Engenho do Mato",
-            #         "Itacoatiara", "Itaipu", "Jacaré", "Jardim Imbuí", "Maravista", "Piratininga",
-                #        "Santo Antônio", "Serra Grande", "Badu", "Cantagalo", "Ititioca",
-                #       "Largo da Batalha", "Maceió", "Maria Paula", "Matapaca", "Sapê",
-                #      "Vila Progresso", "Muriqui", "Rio do Ouro", "Várzea das Moças"), key="filtro_localizacao")
         if st.sidebar.button("Aplicar Filtros"):
             filtered_data = filtrar_dados(test_data)
             iterar_pelo_csv(filtered_data)
 
     confidence = float(st.sidebar.slider("Confiança", 25, 100, 40)) / 100
     source_img = st.sidebar.file_uploader("Escolha a imagem...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
-
-
-    # st.write(st.session_state)
-
     
     colunas_videos = st.columns([9, 1])
 

@@ -182,7 +182,7 @@ class Manager():
 
         if not owner.isLicenseActive:
             self.applyTicket(owner, "Licenca vencida", 293.47, 7)
-            decision = "Licença vencida"
+            decision = "Licenca vencida"
         return owner, decision
 
     def logger(self, image, owner, decision, logPath="assets/logs/", imagesPath="assets/logs/images/"):
@@ -230,39 +230,58 @@ class ComputerVision:
                     ocr = ocr[:i] + "I" + ocr[i+1:]
                 if ocr[i] == "5":
                     ocr = ocr[:i] + "S" + ocr[i+1:]
+                if ocr[i] == "4":
+                    ocr = ocr[:i] + "L" + ocr[i+1:]
+                if ocr[i] == "8":
+                    ocr = ocr[:i] + "B" + ocr[i+1:]
+                if ocr[i] == "7":
+                    ocr = ocr[:i] + "Z" + ocr[i+1:]
+                if ocr[i] == "2":
+                    ocr = ocr[:i] + "Z" + ocr[i+1:]
             if i == 3 or i == 5 or i == 6:
-                if ocr[i] == "O":
+                if ocr[i] == "O" or ocr[i] == "o":
                     ocr = ocr[:i] + "0" + ocr[i+1:]
-                if ocr[i] == "I":
+                if ocr[i] == "I" or ocr[i] == "i":
                     ocr = ocr[:i] + "1" + ocr[i+1:]
-                if ocr[i] == "S":
+                if ocr[i] == "S" or ocr[i] == "s":
                     ocr = ocr[:i] + "5" + ocr[i+1:]
+                if ocr[i] == "B" or ocr[i] == "b":
+                    ocr = ocr[:i] + "8" + ocr[i+1:]
+                if ocr[i] == "L" or ocr[i] == "l":
+                    ocr = ocr[:i] + "4" + ocr[i+1:]
+                if ocr[i] == "Z" or ocr[i] == "z":
+                    ocr = ocr[:i] + "7" + ocr[i+1:]
+                if ocr[i] == "C" or ocr[i] == "c":
+                    ocr = ocr[:i] + "0" + ocr[i+1:]
+                if ocr[i] == "G" or ocr[i] == "g":
+                    ocr = ocr[:i] + "4" + ocr[i+1:]
         return ocr
 
     def getOCR(self, image, x, y, w, h):
         real_x = x - w/2
         real_y = y - h/2
         cropped = image[int(real_y):int(real_y+h), int(real_x):int(real_x+w)]
+        cv2.imwrite("assets/croppedTESTE.jpg", cropped)
         gray = cv2.cvtColor(cropped, cv2.COLOR_RGB2GRAY)
         results = self.reader.readtext(gray)
         ocr = ""
-        for result in results:
-            if len(results) == 1:
-                ocr = result[1]
-            if len(results) >1 and len(results[1])>6 and results[2]> 0.2:
-                ocr = result[1]
+        print(results)
+        for item in results:
+            if len(item[1]) == 7:
+                ocr = item[1]
+        ocr = ocr.upper()
         ocr = self.fixOCR(ocr)
+        print(ocr)
         return ocr
 
     def getOCROnFullImage(self, image):
         gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
         results = self.reader.readtext(gray)
         ocr = ""
-        for result in results:
-            if len(results) == 1:
-                ocr = result[1]
-            if len(results) >1 and len(results[1])>6 and results[2]> 0.2:
-                ocr = result[1]
+        for item in results:
+            if len(item[1]) == 7:
+                ocr = item[1]
+        print(ocr)
         return ocr
 
 

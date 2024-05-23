@@ -1,2 +1,4 @@
-Numero CNH,Nome,Pontos na Carteira,Licennça Ativa,Data,Hora,Decisao,imagem
+Numero CNH,Nome,Pontos na Carteira,Licença Ativa,Data,Hora,Decisao,imagem
 19283748591,joe,217,1,23-05-2024,03-11-52,Licenca cassada,assets/logs/images/19283748591+23-05-2024+03-11-52.jpg
+10239485231,Gabriel,70,1,23-05-2024,04-45-54,Documento irregular,assets/logs/images/10239485231+23-05-2024+04-45-54.jpg
+16831412312,Pedro,26,1,23-05-2024,04-47-39,Documento irregular,assets/logs/images/16831412312+23-05-2024+04-47-39.jpg

@@ -1,0 +1,3 @@
+- FixOcr melhorado para maior tratamento de erros
+- GetOCR alterado
+- 
